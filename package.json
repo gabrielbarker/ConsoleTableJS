@@ -1,0 +1,28 @@
+{
+  "name": "consoletablejs",
+  "version": "1.0.0",
+  "description": "A tool to simplify displaying data in table form in the console",
+  "main": "dist/index.js",
+  "scripts": {
+    "test": "tsc && mocha -r ts-node/register src/test/**/*.test.ts",
+    "start": "tsc && node dist/index"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gabrielbarker/ConsoleTableJS.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/gabrielbarker/ConsoleTableJS/issues"
+  },
+  "homepage": "https://github.com/gabrielbarker/ConsoleTableJS#readme",
+  "devDependencies": {
+    "@types/chai": "^4.2.10",
+    "@types/mocha": "^7.0.2",
+    "chai": "^4.2.0",
+    "mocha": "^7.1.0",
+    "ts-node": "^8.6.2",
+    "typescript": "^3.8.3"
+  }
+}
