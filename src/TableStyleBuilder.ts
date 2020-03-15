@@ -3,7 +3,7 @@ import TableStyle from "./TableStyle";
 export default class TableStyleBuilder {
   private spaceStart: string = " ";
   private spaceEnd: string = " ";
-  private verticalLine: ":" | "|" = "|";
+  private verticalLine: ":" | "|" | " " = "|";
   private horizontalLine: "-" | "=" = "-";
 
   public withNumberOfSpacesAtStartOfColumns(spaces: number): TableStyleBuilder {
@@ -16,7 +16,7 @@ export default class TableStyleBuilder {
     return this;
   }
 
-  public withVerticalLineStyle(style: "|" | ":"): TableStyleBuilder {
+  public withVerticalLineStyle(style: "|" | ":" | " "): TableStyleBuilder {
     this.verticalLine = style;
     return this;
   }

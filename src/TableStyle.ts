@@ -1,13 +1,13 @@
 export default class TableStyle {
   public readonly spaceStart: string;
   public readonly spaceEnd: string;
-  public readonly verticalLine: ":" | "|";
+  public readonly verticalLine: ":" | "|" | " ";
   public readonly horizontalLine: "-" | "=";
 
   constructor(
     spaceStart: string,
     spaceEnd: string,
-    verticalLine: ":" | "|",
+    verticalLine: ":" | "|" | " ",
     horizontalLine: "-" | "="
   ) {
     this.spaceStart = spaceStart;
