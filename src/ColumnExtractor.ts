@@ -33,25 +33,19 @@ export default class ColumnExtractor {
     if (!this.columnObject[key]) this.columnObject[key] = [];
     this.columnObject[key].push(object[key].toString());
     if (!this.getObjectFieldKey(object)) return;
-    const numberOfNulls = this.depthFromObject(object) * this.numberOfChildObjects(object);
+    const numberOfNulls = this.numberOfChildObjects(object);
     for (let i = 1; i < numberOfNulls; i++) this.columnObject[key].push("");
   }
 
-  private depthFromObject(object: any): number {
+  private numberOfChildObjects(object: any): number {
     let objectFieldKey = this.getObjectFieldKey(object);
-    let depth = 0;
+    let depth = 1;
     while (objectFieldKey) {
-      depth++;
+      depth *= object[objectFieldKey].length;
       object = object[objectFieldKey][0];
       objectFieldKey = this.getObjectFieldKey(object);
     }
     return depth;
-  }
-
-  private numberOfChildObjects(object: any): number {
-    const objectFieldKey = this.getObjectFieldKey(object);
-    if (objectFieldKey) return object[objectFieldKey].length;
-    return 0;
   }
 
   private getObjectFieldKey(object: any): string | undefined {
