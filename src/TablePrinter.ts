@@ -26,7 +26,7 @@ export default class TablePrinter {
 
   private addValuesToRows(): void {
     const numberOfValues = this.columns[0].getValues().length;
-    for (let i = 0; i < numberOfValues; i++) this.tableRows.push("|");
+    for (let i = 0; i < numberOfValues; i++) this.tableRows.push(this.style.verticalLine);
     this.columns.forEach(column => this.addColumnValuesToRows(column));
   }
 
