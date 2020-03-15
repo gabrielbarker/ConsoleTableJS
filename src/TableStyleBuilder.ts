@@ -1,10 +1,13 @@
 import TableStyle from "./TableStyle";
 
+export type VerticalLineCharacter = ":" | "|" | "||" | " ";
+export type HorizontalLineCharacter = "-" | "=" | "_" | " ";
+
 export default class TableStyleBuilder {
   private spaceStart: string = " ";
   private spaceEnd: string = " ";
-  private verticalLine: ":" | "|" | " " = "|";
-  private horizontalLine: "-" | "=" = "-";
+  private verticalLine: VerticalLineCharacter = "|";
+  private horizontalLine: HorizontalLineCharacter = "-";
 
   public withNumberOfSpacesAtStartOfColumns(spaces: number): TableStyleBuilder {
     this.spaceStart = " ".repeat(spaces);
@@ -16,12 +19,12 @@ export default class TableStyleBuilder {
     return this;
   }
 
-  public withVerticalLineStyle(style: "|" | ":" | " "): TableStyleBuilder {
+  public withVerticalLineStyle(style: VerticalLineCharacter): TableStyleBuilder {
     this.verticalLine = style;
     return this;
   }
 
-  public withHorizontalLineStyle(style: "-" | "="): TableStyleBuilder {
+  public withHorizontalLineStyle(style: HorizontalLineCharacter): TableStyleBuilder {
     this.horizontalLine = style;
     return this;
   }
