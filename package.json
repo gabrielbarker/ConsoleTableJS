@@ -1,5 +1,5 @@
 {
-  "name": "tablo",
+  "name": "taybl",
   "version": "0.0.1",
   "description": "A tool to simplify displaying data in table form in the console",
   "main": "dist/index.js",
@@ -13,14 +13,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/gabrielbarker/Tablo.git"
+    "url": "git+https://github.com/gabrielbarker/Taybl.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/gabrielbarker/Tablo/issues"
+    "url": "https://github.com/gabrielbarker/Taybl/issues"
   },
-  "homepage": "https://github.com/gabrielbarker/Tablo#readme",
+  "homepage": "https://github.com/gabrielbarker/Taybl#readme",
   "devDependencies": {
     "@types/chai": "^4.2.10",
     "@types/mocha": "^7.0.2",

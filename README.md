@@ -1,30 +1,30 @@
-# Tablo [![Build Status](https://travis-ci.com/gabrielbarker/Tablo.svg?branch=master)](https://travis-ci.com/gabrielbarker/Tablo)
+# Taybl [![Build Status](https://travis-ci.com/gabrielbarker/Taybl.svg?branch=master)](https://travis-ci.com/gabrielbarker/Taybl)
 
 A tool to simplify displaying data in table form in the console.
 
 ## Installation
 
-Install Tablo using
+Install Taybl using
 
 ```
-npm install Tablo
+npm install Taybl
 ```
 
-Import Tablo using
+Import Taybl using
 
 ```
-const Tablo = require("Tablo");
+const Taybl = require("Taybl");
 ```
 
 Typescript is also supported:
 
 ```
-import Tablo from "Tablo";
+import Taybl from "Taybl";
 ```
 
 ## Usage
 
-To use Tablo, import the module. Then construct a Tablo object, passing in the data in object form. The Tablo can then be printed to the console by, first adding any desired styling using the 'with...' methods, and then calling the 'print' method.
+To use Taybl, import the module. Then construct a Taybl object, passing in the data in object form. The Taybl can then be printed to the console by, first adding any desired styling using the 'with...' methods, and then calling the 'print' method.
 
 The given object must follow the correct format, obeying certain rules:
 
@@ -56,11 +56,11 @@ const object = {
 };
 ```
 
-This object can then be used to construct a Tablo:
+This object can then be used to construct a Taybl:
 
-```const Tablo = require("Tablo");
-const tablo = new Tablo(object);
-tablo
+```const Taybl = require("Taybl");
+const taybl = new Taybl(object);
+taybl
   .withHorizontalLineStyle("-")
   .withVerticalLineStyle("|")
   .withNumberOfSpacesAtStartOfColumns(1)

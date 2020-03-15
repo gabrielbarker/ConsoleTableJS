@@ -1,2 +1,2 @@
-import Tablo from "./Tablo";
-export default Tablo;
+import Taybl from "./Taybl";
+export default Taybl;

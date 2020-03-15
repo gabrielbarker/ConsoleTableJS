@@ -5,7 +5,7 @@ import ColumnExtractor from "./ColumnExtractor";
 import Column from "./Column";
 import TablePrinter from "./TablePrinter";
 
-export default class Tablo {
+export default class Taybl {
   private columns: Column[];
   private styleBuilder: TableStyleBuilder = new TableStyleBuilder();
   private validator: ObjectValidator = new ObjectValidator();
@@ -21,22 +21,22 @@ export default class Tablo {
     printer.print();
   }
 
-  public withNumberOfSpacesAtStartOfColumns(spaces: number): Tablo {
+  public withNumberOfSpacesAtStartOfColumns(spaces: number): Taybl {
     this.styleBuilder = this.styleBuilder.withNumberOfSpacesAtStartOfColumns(spaces);
     return this;
   }
 
-  public withNumberOfSpacesAtEndOfColumns(spaces: number): Tablo {
+  public withNumberOfSpacesAtEndOfColumns(spaces: number): Taybl {
     this.styleBuilder = this.styleBuilder.withNumberOfSpacesAtEndOfColumns(spaces);
     return this;
   }
 
-  public withVerticalLineStyle(style: VerticalLineCharacter): Tablo {
+  public withVerticalLineStyle(style: VerticalLineCharacter): Taybl {
     this.styleBuilder = this.styleBuilder.withVerticalLineStyle(style);
     return this;
   }
 
-  public withHorizontalLineStyle(style: HorizontalLineCharacter): Tablo {
+  public withHorizontalLineStyle(style: HorizontalLineCharacter): Taybl {
     this.styleBuilder = this.styleBuilder.withHorizontalLineStyle(style);
     return this;
   }
