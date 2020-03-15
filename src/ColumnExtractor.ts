@@ -1,91 +1,69 @@
-export default class ColumnExtractor {
-  private columns: any = {};
-  private rowStrings: string[] = [];
+import Column from "./Column";
 
-  public printTable(object: any) {
+export default class ColumnExtractor {
+  private columnObject: any = {};
+  private columns: Column[] = [];
+
+  constructor(object: any) {
     this.getColumnsFor(object);
     this.replaceNullsWithSpaces();
-    this.initialiseRowStrings();
-    this.addColumnsToRowStrings();
-    this.printRows();
+    this.makeColumnsFromColumnObject();
+  }
+
+  public getColumns(): Column[] {
+    return this.columns;
+  }
+
+  private makeColumnsFromColumnObject() {
+    Object.keys(this.columnObject).forEach(key =>
+      this.columns.push(new Column(key, this.columnObject[key]))
+    );
   }
 
   private getColumnsFor(object: any) {
-    const objectFieldKey = Object.keys(object).find(key => typeof object[key] === "object");
-    Object.keys(object).forEach(key => {
-      if (key !== objectFieldKey) {
-        this.addToColumnsForNonObjectFields(key, object, objectFieldKey);
-      } else {
-        object[objectFieldKey].forEach((obj: any, i: number) => {
-          this.getColumnsFor(obj);
-        });
-      }
-    });
+    const objectFieldKey = this.getObjectFieldKey(object);
+    Object.keys(object).forEach(key => this.handleObjectKeys(key, objectFieldKey, object));
   }
 
-  private addToColumnsForNonObjectFields(
-    key: string,
-    object: any,
-    objectFieldKey: string | undefined
-  ) {
-    if (!this.columns[key]) this.columns[key] = [];
-    this.columns[key].push(object[key].toString());
-    if (objectFieldKey) {
-      const depth = this.depthFromObject(object);
-      const numberOfChildObjects = this.numberOfChildObjects(object);
-      for (let i = 1; i < depth * numberOfChildObjects; i++) {
-        this.columns[key].push(null);
-      }
-    }
+  private handleObjectKeys(key: string, objectFieldKey: string | undefined, object: any) {
+    if (key !== objectFieldKey) this.addToColumnsForNonObjectFields(key, object);
+    else object[objectFieldKey].forEach((obj: any) => this.getColumnsFor(obj));
   }
 
-  private depthFromObject(obj: any): number {
-    let object = obj;
-    let objectFieldKey = Object.keys(object).find((key: any) => typeof object[key] === "object");
+  private addToColumnsForNonObjectFields(key: string, object: any) {
+    if (!this.columnObject[key]) this.columnObject[key] = [];
+    this.columnObject[key].push(object[key].toString());
+    if (!this.getObjectFieldKey(object)) return;
+    const numberOfNulls = this.depthFromObject(object) * this.numberOfChildObjects(object);
+    for (let i = 1; i < numberOfNulls; i++) this.columnObject[key].push("");
+  }
+
+  private depthFromObject(object: any): number {
+    let objectFieldKey = this.getObjectFieldKey(object);
     let depth = 0;
     while (objectFieldKey) {
       depth++;
       object = object[objectFieldKey][0];
-      objectFieldKey = Object.keys(object).find((key: any) => typeof object[key] === "object");
+      objectFieldKey = this.getObjectFieldKey(object);
     }
     return depth;
   }
 
   private numberOfChildObjects(object: any): number {
-    let objectFieldKey = Object.keys(object).find((key: any) => typeof object[key] === "object");
+    const objectFieldKey = this.getObjectFieldKey(object);
     if (objectFieldKey) return object[objectFieldKey].length;
     return 0;
   }
 
+  private getObjectFieldKey(object: any): string | undefined {
+    return Object.keys(object).find((key: any) => typeof object[key] === "object");
+  }
+
   private replaceNullsWithSpaces() {
-    Object.keys(this.columns).forEach(key => {
-      const max = Math.max(
-        ...this.columns[key]
-          .filter((value: any) => value !== null)
-          .map((value: string) => value.length)
-      );
-      this.columns[key] = this.columns[key].map((value: string) => {
-        if (value === null) return " ".repeat(max);
-        return value.padEnd(max, " ");
-      });
+    Object.keys(this.columnObject).forEach(key => {
+      const lengths = this.columnObject[key].map((value: string) => value.length);
+      const max = Math.max(...lengths);
+      this.columnObject[key] = this.columnObject[key].map((val: string) => val.padEnd(max, " "));
     });
-  }
-
-  private addColumnsToRowStrings() {
-    Object.keys(this.columns).forEach(key => {
-      for (let i = 0; i < this.columns[key].length; i++) {
-        this.rowStrings[i] += this.columns[key][i] + " | ";
-      }
-    });
-  }
-
-  private initialiseRowStrings() {
-    this.columns[Object.keys(this.columns)[0]].forEach(() => {
-      this.rowStrings.push("");
-    });
-  }
-
-  private printRows() {
-    this.rowStrings.forEach(row => console.log(row));
   }
 }
