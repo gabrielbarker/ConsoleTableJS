@@ -1,5 +1,5 @@
 {
-  "name": "consoletablejs",
+  "name": "tablo",
   "version": "1.0.0",
   "description": "A tool to simplify displaying data in table form in the console",
   "main": "dist/index.js",
@@ -13,14 +13,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/gabrielbarker/ConsoleTableJS.git"
+    "url": "git+https://github.com/gabrielbarker/Tablo.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/gabrielbarker/ConsoleTableJS/issues"
+    "url": "https://github.com/gabrielbarker/Tablo/issues"
   },
-  "homepage": "https://github.com/gabrielbarker/ConsoleTableJS#readme",
+  "homepage": "https://github.com/gabrielbarker/Tablo#readme",
   "devDependencies": {
     "@types/chai": "^4.2.10",
     "@types/mocha": "^7.0.2",
