@@ -91,4 +91,5 @@ The following styling options are currently available:
 ## Contributing
 
 Any contribution such as new features or documentaion is very welcome!
+
 Any issues, be it feature requests or bug fixes, are also welcome!
