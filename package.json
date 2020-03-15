@@ -1,6 +1,6 @@
 {
   "name": "tablo",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "A tool to simplify displaying data in table form in the console",
   "main": "dist/index.js",
   "files": [
