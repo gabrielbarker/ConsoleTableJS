@@ -1,4 +1,4 @@
-# Tablo
+# Tablo [![Build Status](https://travis-ci.com/gabrielbarker/Tablo.svg?branch=master)](https://travis-ci.com/gabrielbarker/Tablo)
 
 A tool to simplify displaying data in table form in the console.
 
