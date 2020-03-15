@@ -6,7 +6,6 @@ export default class ColumnExtractor {
 
   constructor(object: any) {
     this.getColumnsFor(object);
-    this.replaceNullsWithSpaces();
     this.makeColumnsFromColumnObject();
   }
 
@@ -57,13 +56,5 @@ export default class ColumnExtractor {
 
   private getObjectFieldKey(object: any): string | undefined {
     return Object.keys(object).find((key: any) => typeof object[key] === "object");
-  }
-
-  private replaceNullsWithSpaces() {
-    Object.keys(this.columnObject).forEach(key => {
-      const lengths = this.columnObject[key].map((value: string) => value.length);
-      const max = Math.max(...lengths);
-      this.columnObject[key] = this.columnObject[key].map((val: string) => val.padEnd(max, " "));
-    });
   }
 }

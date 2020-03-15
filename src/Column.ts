@@ -5,6 +5,7 @@ export default class Column {
   constructor(header: string, values: string[]) {
     this.header = header;
     this.values = values;
+    this.fixWidth();
   }
 
   public getHeader() {
@@ -13,5 +14,11 @@ export default class Column {
 
   public getValues() {
     return this.values;
+  }
+
+  private fixWidth() {
+    const maxWidth = Math.max(this.header.length, Math.max(...this.values.map(v => v.length)));
+    this.header = this.header.padEnd(maxWidth, " ");
+    this.values = this.values.map(value => value.padEnd(maxWidth, " "));
   }
 }
