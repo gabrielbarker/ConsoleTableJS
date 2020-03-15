@@ -3,9 +3,13 @@
   "version": "1.0.0",
   "description": "A tool to simplify displaying data in table form in the console",
   "main": "dist/index.js",
+  "files": [
+    "dist/",
+    "README.md"
+  ],
   "scripts": {
     "test": "tsc && mocha -r ts-node/register src/test/**/*.test.ts",
-    "start": "tsc && node dist/index"
+    "start": "tsc && node dist/testScript"
   },
   "repository": {
     "type": "git",
