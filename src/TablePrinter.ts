@@ -1,22 +1,26 @@
 import Column from "./Column";
+import TableStyle from "./TableStyle";
+import TableStyleBuilder from "./TableStyleBuilder";
 
 export default class TablePrinter {
   private columns: Column[] = [];
   private tableRows: string[] = [];
+  private style: TableStyle;
 
-  constructor(columns: Column[]) {
+  constructor(columns: Column[], style?: TableStyle) {
     this.columns = columns;
+    this.style = style || new TableStyleBuilder().build();
     this.addHeaderToRows();
     this.addValuesToRows();
     this.addFinalLine();
   }
 
-  public print() {
+  public print(): void {
     this.tableRows.forEach(row => console.log(row));
   }
 
   private addHeaderToRows(): void {
-    for (let i = 0; i < 3; i++) this.tableRows.push("|");
+    for (let i = 0; i < 3; i++) this.tableRows.push(this.style.verticalLine);
     this.columns.forEach(column => this.addColumnHeaderToRows(column));
   }
 
@@ -27,24 +31,36 @@ export default class TablePrinter {
   }
 
   private addColumnHeaderToRows(column: Column): void {
-    const maxLength = Math.max(column.getHeader().length);
-    this.tableRows[0] += "".padEnd(maxLength, "-") + "-|";
-    this.tableRows[1] += column.getHeader() + " |";
-    this.tableRows[2] += "".padEnd(maxLength, "-") + "-|";
+    const headerText: string = this.addSpaces(column.getHeader());
+    const topAndBottomLine = this.getHorizontalLineOfLength(headerText.length);
+    this.tableRows[0] += topAndBottomLine + this.style.verticalLine;
+    this.tableRows[1] += headerText + this.style.verticalLine;
+    this.tableRows[2] += topAndBottomLine + this.style.verticalLine;
   }
 
   private addColumnValuesToRows(column: Column): void {
-    column.getValues().forEach((value, index) => (this.tableRows[index + 3] += value + " |"));
+    column.getValues().forEach((value, index) => {
+      const row = this.addSpaces(value) + this.style.verticalLine;
+      this.tableRows[index + 3] += row;
+    });
   }
 
-  private addFinalLine() {
-    this.tableRows.push("|");
+  private addFinalLine(): void {
+    this.tableRows.push(this.style.verticalLine);
     this.columns.forEach(column => this.addSectionToFinalLine(column));
   }
 
-  private addSectionToFinalLine(column: Column) {
-    const lastIndex = this.tableRows.length - 1;
-    const width = column.getHeader().length;
-    this.tableRows[lastIndex] += "".padEnd(width, "-") + "-|";
+  private addSectionToFinalLine(column: Column): void {
+    const last = this.tableRows.length - 1;
+    const width = this.addSpaces(column.getHeader()).length;
+    this.tableRows[last] += this.getHorizontalLineOfLength(width) + this.style.verticalLine;
+  }
+
+  private addSpaces(value: string): string {
+    return this.style.spaceStart + value + this.style.spaceEnd;
+  }
+
+  private getHorizontalLineOfLength(length: number): string {
+    return "".padEnd(length, this.style.horizontalLine);
   }
 }
