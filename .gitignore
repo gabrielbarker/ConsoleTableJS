@@ -106,4 +106,4 @@ typings/
 dist
 
 # testing script
-src/testScript.ts
+src/demo/
