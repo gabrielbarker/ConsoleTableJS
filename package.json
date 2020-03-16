@@ -1,6 +1,6 @@
 {
   "name": "taybl",
-  "version": "0.0.2",
+  "version": "1.0.0",
   "description": "A tool to simplify displaying data in table form in the console",
   "main": "dist/index.js",
   "types": "./dist/index.d.ts",
