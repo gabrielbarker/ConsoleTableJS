@@ -17,7 +17,22 @@
     "type": "git",
     "url": "git+https://github.com/gabrielbarker/Taybl.git"
   },
-  "author": "",
+  "keywords": [
+    "table",
+    "chart",
+    "typescript",
+    "types",
+    "cli",
+    "report",
+    "console",
+    "taybl",
+    "node",
+    "ts",
+    "column",
+    "row",
+    "javascript"
+  ],
+  "author": "gabrielbarker",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/gabrielbarker/Taybl/issues"
