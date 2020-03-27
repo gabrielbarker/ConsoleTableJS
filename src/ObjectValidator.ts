@@ -1,62 +1,55 @@
 export default class ObjectValidator {
   private valid: boolean = true;
+  private message: string = "";
   private object: any;
 
   public isValid(object: any) {
-    this.object = object;
+    this.object = this.wrapArrayInObject(object);
     this.validateEachFieldLevel();
     return this.valid;
   }
 
+  public getMessage(): string {
+    return this.message;
+  }
+
+  private wrapArrayInObject(object: any) {
+    return Array.isArray(object) ? { dummyField: object } : object;
+  }
+
   private validateEachFieldLevel() {
-    let numberOfObjectFields = this.numberOfObjectFields();
-    while (this.valid && numberOfObjectFields > 0) {
-      numberOfObjectFields = this.numberOfObjectFields();
-      this.validateFieldLevel(numberOfObjectFields);
-    }
+    while (this.valid && this.getArrayFields().length > 0) this.validateFieldLevel();
   }
 
-  private validateFieldLevel(numberOfObjectFields: number) {
-    if (numberOfObjectFields > 1) this.validateMultipleObjectFields();
-    else if (numberOfObjectFields === 1) this.object = this.getObjectField();
+  private validateFieldLevel() {
+    const arrayFields = this.getArrayFields();
+    this.validateArrayFields(arrayFields);
+    if (this.valid) this.object = arrayFields[0][0];
   }
 
-  private validateMultipleObjectFields() {
-    if (Array.isArray(this.object)) this.validateArrayContainsOneType();
-    else this.valid = false;
+  private validateArrayFields(arrayFields: any[]) {
+    if (arrayFields.length > 1) this.invalidate("Error: Only one field per object can be an array");
+    else if (arrayFields.length === 1) this.validateArrayContainsOneType(arrayFields[0]);
   }
 
-  private validateArrayContainsOneType() {
-    const type = typeof this.object[0];
-    if (this.object.every((value: any) => typeof value === type)) {
-      this.validateArrayOfObjectsContainsOneType();
-    } else this.valid = false;
+  private validateArrayContainsOneType(array: any[]) {
+    if (array.every((value: any) => typeof value === "object")) this.validateKeyStringsMatch(array);
+    else this.invalidate("Error: Array fields must contain objects.");
   }
 
-  private validateArrayOfObjectsContainsOneType() {
-    if (typeof this.object[0] === "object") {
-      this.validateKeyStringsMatch();
-      this.object = this.object[0];
-    }
+  private validateKeyStringsMatch(array: any[]) {
+    const keysString = Object.keys(array[0]).join("");
+    if (!array.every((obj: any) => Object.keys(obj).join("") === keysString))
+      this.invalidate("Error: Array fields must have consistent type.");
   }
 
-  private validateKeyStringsMatch() {
-    const keysString = Object.keys(this.object[0]).join("");
-    if (!this.object.every((obj: any) => Object.keys(obj).join("") === keysString))
-      this.valid = false;
+  private invalidate(message: string) {
+    this.valid = false;
+    this.message = message;
   }
 
-  private numberOfObjectFields(): number {
-    const fields = this.getFields();
-    return fields.filter(field => typeof field === "object" && field !== null).length;
-  }
-
-  private getObjectField(): string | undefined {
-    const fields: string[] = this.getFields();
-    return fields.find(field => typeof field === "object" && field !== null);
-  }
-
-  private getFields(): string[] {
-    return Object.keys(this.object).map(key => this.object[key]);
+  private getArrayFields(): any[] {
+    const fields = Object.keys(this.object).map(key => this.object[key]);
+    return fields.filter(field => Array.isArray(field) && field !== null);
   }
 }
