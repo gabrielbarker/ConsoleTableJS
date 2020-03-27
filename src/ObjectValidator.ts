@@ -6,6 +6,7 @@ export default class ObjectValidator {
   private object: any;
 
   public isValid(object: any) {
+    this.valid = true;
     this.object = this.wrapArrayInObject(object);
     this.validateEachFieldLevel();
     return this.valid;
