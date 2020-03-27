@@ -26,14 +26,11 @@ import Taybl from "Taybl";
 
 To use Taybl, import the module. Then construct a Taybl object, passing in the data in object form. The Taybl can then be printed to the console by, first adding any desired styling using the 'with...' methods, and then calling the 'print' method.
 
-The given object must follow the correct format, obeying certain rules:
+The given object must follow the correct format, detailed below.
 
-- Objects can have standard fields, which correspond to columns, and have primitive values
-- An can have at most one field whose value is a list of other valid objects. These objects can each have another object field and many standard fields.
-- Only standard fields correspond to columns, object field names are ignored
-- Each object in the list corresponding to an object field must have the same fields
+A 'taybl-object' is any object that has at most one field whose value is an array. Any other fields must be primitives. The field that is an array may only contain other taybl-objects. This is because each field with a primitive value relates to a column and a value in that column. Each field whose value is an array of taybl-objects represents the next section of the table, with finer granularity. The lowest level of the taybl is the level that contains no further taybl-objects.
 
-The following is an example of a valid object:
+The following is an example of a valid taybl-object:
 
 ```
 const object = {
@@ -74,10 +71,10 @@ The above code would output the following:
 |------------|------------|-------|--------------|
 | fileName   | type       | count | line numbers |
 |------------|------------|-------|--------------|
-| file name1 | type name1 | 6     | 7, 18        |
-|            | type name2 | 2     | 17, 9        |
+| file name1 | type name1 | 6     | 7,18         |
+|            | type name2 | 2     | 17,9         |
 | file name2 | type name3 | 0     | 28           |
-|            | type name4 | 3     | 1, 9, 12     |
+|            | type name4 | 3     | 1,9,12       |
 |------------|------------|-------|--------------|
 ```
 
