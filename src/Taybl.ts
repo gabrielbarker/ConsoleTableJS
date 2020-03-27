@@ -11,9 +11,10 @@ export default class Taybl {
   private validator: ObjectValidator = new ObjectValidator();
 
   constructor(object: any) {
+    object = this.wrapArrayInObject(object);
     if (this.validator.isValid(object)) {
       this.columns = new ColumnExtractor(object).getColumns();
-    } else throw "Invalid Object";
+    } else throw this.validator.getMessage();
   }
 
   public print(): void {
@@ -39,5 +40,9 @@ export default class Taybl {
   public withHorizontalLineStyle(style: HorizontalLineCharacter): Taybl {
     this.styleBuilder = this.styleBuilder.withHorizontalLineStyle(style);
     return this;
+  }
+
+  private wrapArrayInObject(object: any): any {
+    return Array.isArray(object) ? { dummyField: object } : object;
   }
 }
