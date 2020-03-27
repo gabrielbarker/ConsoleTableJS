@@ -12,9 +12,8 @@ export default class Taybl {
 
   constructor(object: any) {
     object = this.wrapArrayInObject(object);
-    if (this.validator.isValid(object)) {
-      this.columns = new ColumnExtractor(object).getColumns();
-    } else throw this.validator.getMessage();
+    if (this.validator.isValid(object)) this.columns = new ColumnExtractor(object).getColumns();
+    else throw this.validator.getMessage();
   }
 
   public print(): void {
