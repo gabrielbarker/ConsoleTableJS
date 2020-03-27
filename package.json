@@ -11,7 +11,8 @@
   ],
   "scripts": {
     "test": "tsc && mocha -r ts-node/register src/test/**/*.test.ts",
-    "start": "tsc && node dist/demo/testScript"
+    "start": "tsc && node dist/demo/testScript",
+    "tidy": "tidyscript"
   },
   "repository": {
     "type": "git",
@@ -42,9 +43,10 @@
     "@types/chai": "^4.2.10",
     "@types/mocha": "^7.0.2",
     "chai": "^4.2.0",
+    "minimist": ">=1.2.2",
     "mocha": "^7.1.0",
+    "tidyscript": "^1.0.0",
     "ts-node": "^8.6.2",
-    "typescript": "^3.8.3",
-    "minimist": ">=1.2.2"
+    "typescript": "^3.8.3"
   }
 }
