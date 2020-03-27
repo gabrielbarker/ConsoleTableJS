@@ -1,3 +1,5 @@
+import Messages from "./Messages";
+
 export default class ObjectValidator {
   private valid: boolean = true;
   private message: string = "";
@@ -28,19 +30,19 @@ export default class ObjectValidator {
   }
 
   private validateArrayFields(arrayFields: any[]) {
-    if (arrayFields.length > 1) this.invalidate("Error: Only one field per object can be an array");
+    if (arrayFields.length > 1) this.invalidate(Messages.ONE_ARRAY_FIELD_PER_OBJECT);
     else if (arrayFields.length === 1) this.validateArrayContainsOneType(arrayFields[0]);
   }
 
   private validateArrayContainsOneType(array: any[]) {
     if (array.every((value: any) => typeof value === "object")) this.validateKeyStringsMatch(array);
-    else this.invalidate("Error: Array fields must contain objects.");
+    else this.invalidate(Messages.ARRAY_FIELD_MUST_CONTAIN_OBJECTS);
   }
 
   private validateKeyStringsMatch(array: any[]) {
     const keysString = Object.keys(array[0]).join("");
     if (!array.every((obj: any) => Object.keys(obj).join("") === keysString))
-      this.invalidate("Error: Array fields must have consistent type.");
+      this.invalidate(Messages.ARRAY_FIELDS_MUST_HAVE_ONE_TYPE);
   }
 
   private invalidate(message: string) {
