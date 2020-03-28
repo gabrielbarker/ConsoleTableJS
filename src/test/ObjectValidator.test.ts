@@ -1,7 +1,7 @@
 import { assert, expect } from "chai";
 import "mocha";
-import ObjectValidator from "../ObjectValidator";
-import Messages from "../Messages";
+import ObjectValidator from "../main/ObjectValidator";
+import Messages from "../main/Messages";
 
 describe("ObjectValidator: isValid - with valid objects", () => {
   it("should return true for valid objects", () => {

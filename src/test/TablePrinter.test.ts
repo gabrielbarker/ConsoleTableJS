@@ -1,9 +1,9 @@
 import { expect } from "chai";
 import "mocha";
-import TablePrinter from "../TablePrinter";
+import TablePrinter from "../main/TablePrinter";
 import * as TypeMoq from "typemoq";
-import ConsoleDisplay from "../ConsoleDisplay";
-import Column from "../Column";
+import ConsoleDisplay from "../main/ConsoleDisplay";
+import Column from "../main/Column";
 
 describe("TablePrinter: print", () => {
   const rowsInOrderThatTheyWerePrinted: string[] = [];

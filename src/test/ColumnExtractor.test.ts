@@ -1,7 +1,7 @@
 import { assert } from "chai";
 import "mocha";
-import ColumnExtractor from "../ColumnExtractor";
-import Column from "../Column";
+import ColumnExtractor from "../main/ColumnExtractor";
+import Column from "../main/Column";
 
 const object = {
   directory: getName(1, 1),

@@ -1,3 +1,3 @@
-import Taybl from "./Taybl";
+import Taybl from "./main/Taybl";
 export var __useDefault = true;
 export default Taybl;
