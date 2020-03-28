@@ -33,13 +33,11 @@ const expectedColumns = [
 ];
 
 describe("ColumnExtractor: getColumns", () => {
+  const extractor = new ColumnExtractor(object);
+  const columns = extractor.getColumns();
   it("should return the correct columns with spaces", () => {
-    const extractor = new ColumnExtractor(object);
-    const columns = extractor.getColumns();
     assert(columns.length === expectedColumns.length, "wrong number of columns returned");
-    for (let i = 0; i < columns.length; i++) {
-      assert(areEqual(columns[i], expectedColumns[i]));
-    }
+    for (let i = 0; i < columns.length; i++) assert(areEqual(columns[i], expectedColumns[i]));
   });
 });
 
