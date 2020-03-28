@@ -6,7 +6,7 @@ export default class ObjectValidator {
   private object: any;
 
   public isValid(object: any) {
-    this.valid = true;
+    this.resetState();
     this.object = this.wrapArrayInObject(object);
     this.validateEachFieldLevel();
     return this.valid;
@@ -54,5 +54,10 @@ export default class ObjectValidator {
   private getArrayFields(): any[] {
     const fields = Object.keys(this.object).map(key => this.object[key]);
     return fields.filter(field => Array.isArray(field) && field !== null);
+  }
+
+  private resetState() {
+    this.valid = true;
+    this.message = "";
   }
 }
