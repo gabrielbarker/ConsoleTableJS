@@ -4,6 +4,7 @@ import ObjectValidator from "./ObjectValidator";
 import ColumnExtractor from "./ColumnExtractor";
 import Column from "./Column";
 import TablePrinter from "./TablePrinter";
+import ConsoleDisplay from "./ConsoleDisplay";
 
 export default class Taybl {
   private columns: Column[];
@@ -17,7 +18,7 @@ export default class Taybl {
   }
 
   public print(): void {
-    const printer = new TablePrinter(this.columns, this.styleBuilder.build());
+    const printer = new TablePrinter(this.columns, new ConsoleDisplay(), this.styleBuilder.build());
     printer.print();
   }
 

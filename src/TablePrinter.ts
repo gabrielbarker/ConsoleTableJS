@@ -1,14 +1,17 @@
 import Column from "./Column";
 import TableStyle from "./TableStyle";
 import TableStyleBuilder from "./TableStyleBuilder";
+import Display from "./Display";
 
 export default class TablePrinter {
+  private display: Display;
   private columns: Column[] = [];
   private tableRows: string[] = [];
   private style: TableStyle;
 
-  constructor(columns: Column[], style?: TableStyle) {
+  constructor(columns: Column[], display: Display, style?: TableStyle) {
     this.columns = columns;
+    this.display = display;
     this.style = style || new TableStyleBuilder().build();
     this.addHeaderToRows();
     this.addValuesToRows();
@@ -16,7 +19,7 @@ export default class TablePrinter {
   }
 
   public print(): void {
-    this.tableRows.forEach(row => console.log(row));
+    this.tableRows.forEach(row => this.display.print(row));
   }
 
   private addHeaderToRows(): void {
