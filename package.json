@@ -12,7 +12,11 @@
     "README.md"
   ],
   "scripts": {
-    "test": "tsc && mocha -r ts-node/register src/test/**/*.test.ts",
+    "compile": "tsc",
+    "test:unit": "mocha -r ts-node/register 'src/test/*.test.ts'",
+    "test:integration": "mocha -r ts-node/register 'src/test/integration/**/*.test.ts'",
+    "test:all": "npm run test:unit && npm run test:integration",
+    "test": "npm run compile && npm run test:all",
     "start": "tsc && node dist/demo/testScript",
     "tidy": "tidyscript"
   },
