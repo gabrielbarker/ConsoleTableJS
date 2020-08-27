@@ -18,7 +18,7 @@
     "test:all": "npm run test:unit && npm run test:integration",
     "test": "npm run compile && npm run test:all",
     "start": "tsc && node dist/demo/testScript",
-    "tidy": "tidyscript"
+    "tidy": "tidyscript 'src/main/**/*.ts'"
   },
   "repository": {
     "type": "git",
