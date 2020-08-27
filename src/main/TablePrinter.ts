@@ -13,24 +13,29 @@ export default class TablePrinter {
     this.columns = columns;
     this.display = display;
     this.style = style || new TableStyleBuilder().build();
-    this.addHeaderToRows();
-    this.addValuesToRows();
-    this.addFinalLine();
   }
 
   public print(): void {
-    this.tableRows.forEach(row => this.display.print(row));
+    this.populateTableRows();
+    this.tableRows.forEach((row) => this.display.print(row));
+  }
+
+  private populateTableRows(): void {
+    this.addHeaderToRows();
+    this.addValuesToRows();
+    this.addFinalLine();
+    if (!this.style.drawTopLine) this.removeTopLine();
   }
 
   private addHeaderToRows(): void {
     for (let i = 0; i < 3; i++) this.tableRows.push(this.style.verticalLine);
-    this.columns.forEach(column => this.addColumnHeaderToRows(column));
+    this.columns.forEach((column) => this.addColumnHeaderToRows(column));
   }
 
   private addValuesToRows(): void {
     const numberOfValues = this.columns[0].getValues().length;
     for (let i = 0; i < numberOfValues; i++) this.tableRows.push(this.style.verticalLine);
-    this.columns.forEach(column => this.addColumnValuesToRows(column));
+    this.columns.forEach((column) => this.addColumnValuesToRows(column));
   }
 
   private addColumnHeaderToRows(column: Column): void {
@@ -50,7 +55,7 @@ export default class TablePrinter {
 
   private addFinalLine(): void {
     this.tableRows.push(this.style.verticalLine);
-    this.columns.forEach(column => this.addSectionToFinalLine(column));
+    this.columns.forEach((column) => this.addSectionToFinalLine(column));
   }
 
   private addSectionToFinalLine(column: Column): void {
@@ -61,6 +66,10 @@ export default class TablePrinter {
 
   private addSpaces(value: string): string {
     return this.style.spaceStart + value + this.style.spaceEnd;
+  }
+
+  private removeTopLine(): void {
+    this.tableRows = this.tableRows.slice(1);
   }
 
   private getHorizontalLineOfLength(length: number): string {

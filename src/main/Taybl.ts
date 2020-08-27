@@ -42,6 +42,11 @@ export default class Taybl {
     return this;
   }
 
+  public withTopLine(drawTopLine: boolean): Taybl {
+    this.styleBuilder = this.styleBuilder.withTopLine(drawTopLine);
+    return this;
+  }
+
   private wrapArrayInObject(object: any): any {
     return Array.isArray(object) ? { dummyField: object } : object;
   }

@@ -8,6 +8,7 @@ export default class TableStyleBuilder {
   private spaceEnd: string = " ";
   private verticalLine: VerticalLineCharacter = "|";
   private horizontalLine: HorizontalLineCharacter = "-";
+  private drawTopLine: boolean = true;
 
   public withNumberOfSpacesAtStartOfColumns(spaces: number): TableStyleBuilder {
     this.spaceStart = " ".repeat(spaces);
@@ -29,7 +30,18 @@ export default class TableStyleBuilder {
     return this;
   }
 
+  public withTopLine(drawTopLine: boolean): TableStyleBuilder {
+    this.drawTopLine = drawTopLine;
+    return this;
+  }
+
   public build(): TableStyle {
-    return new TableStyle(this.spaceStart, this.spaceEnd, this.verticalLine, this.horizontalLine);
+    return new TableStyle(
+      this.spaceStart,
+      this.spaceEnd,
+      this.verticalLine,
+      this.horizontalLine,
+      this.drawTopLine
+    );
   }
 }
